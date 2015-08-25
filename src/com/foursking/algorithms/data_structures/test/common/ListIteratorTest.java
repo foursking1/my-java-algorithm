@@ -58,8 +58,47 @@ public class ListIteratorTest {
             System.err.println("ListIterator ARRAY_SIZE failure.");
             return false;
         }
+
+        i--;
+        while (iter.hasPrevious()) {
+            T item = iter.previous();
+            int idx = iter.previousIndex();
+            if (idx!=--i) {
+                System.err.println("ListIterator index failure.");
+                return false;
+            }
+            if (item==null) {
+                System.err.println("ListIterator item is null.");
+                return false;
+            }
+        }
+
+        // We should be at the beginning of the collection, this should fail
+        exceptionThrown = false;
+        try {
+            iter.previous();
+        } catch (NoSuchElementException e) {
+            exceptionThrown = true;
+        }
+        if (!exceptionThrown) {
+            System.err.println("ListIterator exception failure.");
+            return false;
+        }
+
+        // This should be negative one
+        iter.previousIndex();
+        int negOne = iter.previousIndex();
+        if (negOne!=-1) {
+            System.err.println("ListIterator negative_one failure.");
+            return false;
+        }
+
+        // Remove all using iterator
+        while (iter.hasNext()) {
+            iter.next();
+            iter.remove();
+        }
+
         return true;
-
-
     }
 }

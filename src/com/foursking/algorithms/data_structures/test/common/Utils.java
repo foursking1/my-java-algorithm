@@ -1,6 +1,7 @@
 package com.foursking.algorithms.data_structures.test.common;
 
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.Random;
 
 /**
@@ -21,6 +22,26 @@ public class Utils {
             throw new IllegalArgumentException("Unsupported type " + type.getName());
         }
         return returnValue;
+    }
+
+    public static void handleError(Object obj) {
+        System.err.println("Object={\n"+obj.toString()+"\n}");
+        throw new RuntimeException("Error in test.");
+    }
+
+    public static void handleError(Object data, Object obj) {
+        System.err.println("Data={"+data+"}");
+        System.err.println("Object={\n"+obj.toString()+"\n}");
+        throw new RuntimeException("Error in test.");
+    }
+
+    public static void handleError(Object[] data, Object obj) {
+        System.err.println("Data={");
+        for (Object o : data)
+            System.err.print(o.toString()+", ");
+        System.err.println("}");
+        System.err.println("Object={\n"+obj.toString()+"\n}");
+        throw new RuntimeException("Error in test.");
     }
 
     private static final Random RANDOM = new Random();
